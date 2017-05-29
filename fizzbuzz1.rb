@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 def fizzbuzz(num, fb = [])
-  (1..num).each do |n|
+  1.upto(num) do |n|
     fb << if (n % 15).zero?
             'fizzbuzz'
           elsif (n % 5).zero?
