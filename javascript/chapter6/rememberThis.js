@@ -14,7 +14,7 @@ const julie = {
 };
 console.log(julie.greetBackwards()); // eiluJ
 
-// 'this' is bind lexically to receiver object, namely stephen.
+// 'this' is bound lexically to receiver object, namely stephen.
 const stephen = {
   name: 'Stephen',
   greetBackwards: function() {
