@@ -34,10 +34,14 @@ function writeFile(fileName, data) {
 }
 
 function* fileReadAndWrite() {
-  const dataA = yield readFile('a.txt');
-  const dataB = yield readFile('b.txt');
-  const dataC = yield readFile('c.txt');
-  yield writeFile('d.txt', dataA + dataB + dataC);
+  try {
+    const data = yield Promise.all([
+      readFile('a.txt'), readFile('b.txt'), readFile('c.txt')
+    ]);
+    yield writeFile('d.txt', data[0] + data[1] + data[2]);
+  } catch (err) {
+    console.log(`Error occurred: ${err}`)
+  }
 }
 
 grun(fileReadAndWrite);
