@@ -1,10 +1,8 @@
 const book = [1, 2, 3, 4];
 const it = book[Symbol.iterator]();
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
-console.log(it.next());
+
+// Repeat until the iterable object returns done: true.
+for (let v of it) console.log(v);
 
 // { value: 1, done: false }
 // { value: 2, done: false }
