@@ -5,7 +5,13 @@ def collatz(n):
     return round(n * 3 + 1)
 
 print('Enter a number and I will show you collatz array.')
-num = int(input())
+num = ''
+
+while not num:
+  try:
+    num = int(input())
+  except ValueError:
+    print('Invalid Value: input integer.')
 
 value = collatz(num)
 print(value)
