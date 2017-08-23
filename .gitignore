@@ -1,2 +1,5 @@
 # Ignore react src
 /react/react-15.5.4
+
+# Ignore envfile
+.env
