@@ -5,8 +5,7 @@ class Spreadsheet
   Dotenv.load!('.env')
 
   def initialize(team, category)
-    @sheet = worksheet(team, category)
-    raise 'sheet not found' if @sheet.nil?
+    @sheet = worksheets.find { |ws| ws.title == "#{team}_#{category}" }
     @row_index = @sheet.rows.dup.length + 1
   end
 
@@ -16,11 +15,6 @@ class Spreadsheet
   end
 
   private
-
-  def worksheet(team, category)
-    sheet_title = "#{team}_#{category}"
-    worksheets.select { |ws| ws.title == sheet_title }.first
-  end
 
   def worksheets
     session = GoogleDrive::Session.from_config('config.json')
