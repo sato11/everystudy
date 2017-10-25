@@ -13,8 +13,12 @@ class Spreadsheet
     @sheet = @@worksheets.find { |ws| ws.title == "#{team}_#{category}" }
   end
 
-  def write(player, row)
-    player.each.with_index(1) { |v, column| set_data(v, row, column)  }
+  def set_data(stats)
+    stats.each.with_index(2) do |player, row|
+      player.each.with_index(1) do |v, column|
+        set_cell(v, row, column)
+      end
+    end
   end
 
   private
@@ -27,7 +31,7 @@ class Spreadsheet
     session.spreadsheet_by_key(ENV['SPREADSHEET_ID']).worksheets
   end
 
-  def set_data(value, row, column)
+  def set_cell(value, row, column)
     @sheet[row, column] = value
   end
 end
