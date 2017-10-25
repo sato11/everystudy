@@ -9,8 +9,7 @@ NPBStats::TEAMS.each do |team, teamname|
   NPBStats::CATEGORIES.each do |category, categoryname|
     req = Net::HTTP::Get.new("/bis/2017/stats/id#{category}1_#{team}.html")
     res = http.request(req)
-    html = res.body
-    stats = NPBStats.parse(html)
+    stats = NPBStats.parse(res.body)
     @sheet = Spreadsheet.new(teamname, categoryname)
     @sheet.set_data(stats)
     @sheet.save
