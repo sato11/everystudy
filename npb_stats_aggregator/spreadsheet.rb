@@ -5,7 +5,8 @@ class Spreadsheet
   Dotenv.load!('.env')
 
   def initialize(team, category)
-    @sheet = worksheets.find { |ws| ws.title == "#{team}_#{category}" }
+    @@worksheets ||= worksheets
+    @sheet = @@worksheets.find { |ws| ws.title == "#{team}_#{category}" }
     @row_index = @sheet.rows.dup.length + 1
   end
 
@@ -16,8 +17,11 @@ class Spreadsheet
 
   private
 
+  def session
+    GoogleDrive::Session.from_config('config.json')
+  end
+
   def worksheets
-    session = GoogleDrive::Session.from_config('config.json')
     session.spreadsheet_by_key(ENV['SPREADSHEET_ID']).worksheets
   end
 
