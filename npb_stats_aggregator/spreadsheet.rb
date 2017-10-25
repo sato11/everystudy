@@ -7,11 +7,11 @@ class Spreadsheet
   def initialize(team, category)
     @sheet = worksheet(team, category)
     raise 'sheet not found' if @sheet.nil?
+    @row_index = @sheet.rows.dup.length + 1
   end
 
   def write(player)
-    row_index = rows.length + 1
-    player.each.with_index(1) { |v, column_index| set_data(v, row_index, column_index)  }
+    player.each.with_index(1) { |v, column_index| set_data(v, @row_index, column_index)  }
     @sheet.save
   end
 
@@ -27,11 +27,7 @@ class Spreadsheet
     session.spreadsheet_by_key(ENV['SPREADSHEET_ID']).worksheets
   end
 
-  def rows
-    @sheet.rows.dup
-  end
-
-  def set_data(value, row_index, column_index)
-    @sheet[row_index, column_index] = value
+  def set_data(value, row, column)
+    @sheet[row, column] = value
   end
 end
