@@ -10,10 +10,8 @@ NPBStats::TEAMS.each do |team, teamname|
     req = Net::HTTP::Get.new("/bis/2017/stats/id#{category}1_#{team}.html")
     res = http.request(req)
     html = res.body
-    table = NPBStats.parse(html)
-    table.each do |player|
-      @sheet = Spreadsheet.new(teamname, categoryname)
-      @sheet.write(player)
-    end
+    stats = NPBStats.parse(html)
+    @sheet = Spreadsheet.new(teamname, categoryname)
+    stats.each.with_index(2) { |player, row| @sheet.write(player, row) }
   end
 end

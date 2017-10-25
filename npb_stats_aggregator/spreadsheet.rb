@@ -7,11 +7,10 @@ class Spreadsheet
   def initialize(team, category)
     @@worksheets ||= worksheets
     @sheet = @@worksheets.find { |ws| ws.title == "#{team}_#{category}" }
-    @row_index = @sheet.rows.dup.length + 1
   end
 
-  def write(player)
-    player.each.with_index(1) { |v, column_index| set_data(v, @row_index, column_index)  }
+  def write(player, row)
+    player.each.with_index(1) { |v, column| set_data(v, row, column)  }
     @sheet.save
   end
 
