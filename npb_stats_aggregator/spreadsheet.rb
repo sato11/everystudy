@@ -1,8 +1,12 @@
 class Spreadsheet
   require 'dotenv'
+  require 'forwardable'
   require 'google_drive'
 
+  extend Forwardable
   Dotenv.load!('.env')
+
+  def_delegators :@sheet, :save
 
   def initialize(team, category)
     @@worksheets ||= worksheets
@@ -11,7 +15,6 @@ class Spreadsheet
 
   def write(player, row)
     player.each.with_index(1) { |v, column| set_data(v, row, column)  }
-    @sheet.save
   end
 
   private

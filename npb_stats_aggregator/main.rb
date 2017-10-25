@@ -13,5 +13,6 @@ NPBStats::TEAMS.each do |team, teamname|
     stats = NPBStats.parse(html)
     @sheet = Spreadsheet.new(teamname, categoryname)
     stats.each.with_index(2) { |player, row| @sheet.write(player, row) }
+    @sheet.save
   end
 end
